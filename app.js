@@ -41,21 +41,34 @@ function getHumanChoice() {
 function playRound(humanChoice, computerChoice) {
     let winState = "";
     switch (humanChoice) {
-        case 'rock' : switch (computerChoice) {
-            case 'rock' : winState = "tie"; break;
-            case 'paper' : winState = "lose"; break;
-            case 'scissors' : winState = "win"; break;
+        case 'rock': switch (computerChoice) {
+            case 'rock': winState = "tie"; break;
+            case 'paper': winState = "lose"; break;
+            case 'scissors': winState = "win"; break;
         } break;
-        case 'paper' : switch (computerChoice) {
-            case 'rock' : winState = "win"; break;
-            case 'paper' : winState = "tie"; break;
-            case 'scissors' : winState = "lose"; break;
+        case 'paper': switch (computerChoice) {
+            case 'rock': winState = "win"; break;
+            case 'paper': winState = "tie"; break;
+            case 'scissors': winState = "lose"; break;
         } break;
-        case 'scissors' : switch (computerChoice) {
-            case 'rock' : winState = "lose"; break;
-            case 'paper' : winState = "win"; break;
-            case 'scissors' : winState = "tie"; break;
+        case 'scissors': switch (computerChoice) {
+            case 'rock': winState = "lose"; break;
+            case 'paper': winState = "win"; break;
+            case 'scissors': winState = "tie"; break;
         } break;
+    }
+    switch (winState) {
+        case "win":
+            humanScore++;
+            console.log(`You win! ${humanChoice} beats ${computerChoice}.`);
+            break;
+        case "tie":
+            console.log(`It's a tie! You both picked ${humanChoice}.`);
+            break;
+        case "lose":
+            computerScore++;
+            console.log(`You lose! ${computerChoice} beats ${humanChoice}.`);
+            break;
     }
 }
 
