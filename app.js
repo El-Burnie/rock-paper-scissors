@@ -72,6 +72,26 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
+//Calls playRound() five times and then declares a winner.
+function playGame() {
+    for (let i = 0; i < 5; i++) {
+        playRound(getHumanChoice(), getComputerChoice());
+    }
+    console.log(`Your Score: ${humanScore} Computer Score: ${computerScore}`);
+    if (humanScore > computerScore) {
+        console.log("Congratulations, you bested the machine!");
+    }
+    else if (humanScore < computerScore) {
+        console.log("The computer beat you. Better luck next time!");
+    }
+    else {
+        console.log("The match was a draw.")
+    }
+    /*Reset scores for another game*/
+    humanScore = 0;
+    computerScore = 0;
+}
+
 //START
 
 //INIT playerScore and computerScore to 0
@@ -116,10 +136,18 @@ function playRound(humanChoice, computerChoice) {
 //      tie : print you tied message
 //      lose : INCREMENT computerScore and print you lose message  
 
-//WHILE roundCount is less than 5
-//  DETERMINE the computer's choice
-//  GET the player's choice from a prompt
-//  DETERMINE the winner by comparing the player and computer choices
-//  INCREMENT the winner's score by 1
-//  INCREMENT roundCount by 1
-//ENDWHILE
+//FUNCTION playGame
+//  FOR five loops
+//      CALL playRound
+//  ENDFOR
+//  PRINT playerScore and computerScore
+//  IF playerScore is higher
+//      PRINT victory message for the player
+//  ELSE IF computerScore is higher
+//      PRINT loss message for the player
+//  ELSE
+//      PRINT tie message
+//  ENDIF
+//  SET playerScore and computerScore to 0
+
+//END
