@@ -60,6 +60,7 @@ function playRound(humanChoice, computerChoice) {
     switch (winState) {
         case "win":
             humanScore++;
+            updateScoreBoard();
             output.textContent = `You win! ${humanChoice} beats ${computerChoice}.`;
             break;
         case "tie":
@@ -67,6 +68,7 @@ function playRound(humanChoice, computerChoice) {
             break;
         case "lose":
             computerScore++;
+            updateScoreBoard();
             output.textContent = `You lose! ${computerChoice} beats ${humanChoice}.`;
             break;
     }
@@ -74,11 +76,16 @@ function playRound(humanChoice, computerChoice) {
 
 const buttons = document.querySelectorAll("button");
 const output = document.querySelector("#output");
+const scoreBoard = document.querySelector("#scoreBoard");
+scoreBoard.textContent = `Your Score: ${humanScore} | Computer Score: ${computerScore}`;
+
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
         playRound(button.textContent, getComputerChoice());
     });
 });
+
+function updateScoreBoard() { scoreBoard.textContent = `Your Score: ${humanScore} | Computer Score: ${computerScore}`;}
 
 /*
 //Calls playRound() five times and then declares a winner.
