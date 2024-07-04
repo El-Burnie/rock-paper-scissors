@@ -1,30 +1,30 @@
 let humanScore = 0;
 let computerScore = 0;
 
-//Randomly picks rock paper or scissors and returns it as a string
+//Randomly picks Rock Paper or Scissors and returns it as a string
 function getComputerChoice() {
     let x = Math.floor(Math.random() * 3);
     if (x === 0) {
-        return "rock";
+        return "Rock";
     }
     else if (x === 1) {
-        return "paper";
+        return "Paper";
     }
     else {
-        return "scissors";
+        return "Scissors";
     }
 }
 
-//Prompts user to input rock paper or scissors. Loops until user submits a
+//Prompts user to input Rock Paper or Scissors. Loops until user submits a
 //valid response and returns it as a string
 function getHumanChoice() {
     let validResponse = false;
     let choice = "";
     while (!validResponse) {
         try {
-            choice = prompt("rock, paper, scissors").toLowerCase();
+            choice = prompt("Rock, Paper, Scissors").toLowerCase();
 
-            if (choice === "rock" || choice === "paper" || choice === "scissors") {
+            if (choice === "Rock" || choice === "Paper" || choice === "Scissors") {
                 validResponse = true;
             } else {
                 alert("Please enter a valid choice");
@@ -41,20 +41,20 @@ function getHumanChoice() {
 function playRound(humanChoice, computerChoice) {
     let winState = "";
     switch (humanChoice) {
-        case 'rock': switch (computerChoice) {
-            case 'rock': winState = "tie"; break;
-            case 'paper': winState = "lose"; break;
-            case 'scissors': winState = "win"; break;
+        case 'Rock': switch (computerChoice) {
+            case 'Rock': winState = "tie"; break;
+            case 'Paper': winState = "lose"; break;
+            case 'Scissors': winState = "win"; break;
         } break;
-        case 'paper': switch (computerChoice) {
-            case 'rock': winState = "win"; break;
-            case 'paper': winState = "tie"; break;
-            case 'scissors': winState = "lose"; break;
+        case 'Paper': switch (computerChoice) {
+            case 'Rock': winState = "win"; break;
+            case 'Paper': winState = "tie"; break;
+            case 'Scissors': winState = "lose"; break;
         } break;
-        case 'scissors': switch (computerChoice) {
-            case 'rock': winState = "lose"; break;
-            case 'paper': winState = "win"; break;
-            case 'scissors': winState = "tie"; break;
+        case 'Scissors': switch (computerChoice) {
+            case 'Rock': winState = "lose"; break;
+            case 'Paper': winState = "win"; break;
+            case 'Scissors': winState = "tie"; break;
         } break;
     }
     switch (winState) {
@@ -72,6 +72,14 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
+const buttons = document.querySelectorAll("button");
+buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+        playRound(button.textContent, getComputerChoice());
+    });
+});
+
+/*
 //Calls playRound() five times and then declares a winner.
 function playGame() {
     for (let i = 0; i < 5; i++) {
@@ -87,7 +95,8 @@ function playGame() {
     else {
         console.log("The match was a draw.")
     }
-    /*Reset scores for another game*/
+//Reset scores for another game
     humanScore = 0;
     computerScore = 0;
 }
+*/
