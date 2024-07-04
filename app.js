@@ -1,7 +1,34 @@
-const roundCount = 5;
+const maxScore = 5;
 let humanScore = 0;
 let computerScore = 0;
 let gameOver = false;
+
+const body = document.querySelector("body");
+const choiceButtons = document.querySelectorAll(".choice");
+const output = document.querySelector("#output");
+const scoreBoard = document.querySelector("#scoreBoard");
+const resetButton = document.createElement("button");
+scoreBoard.textContent = `Your Score: ${humanScore} | Computer Score: ${computerScore}`;
+resetButton.textContent = "Reset";
+
+choiceButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        if (gameOver) {
+            output.textContent = "The game is over! Click the reset button to start a new game.";
+        } else {
+            playRound(button.textContent, getComputerChoice());
+        }
+    });
+});
+
+resetButton.addEventListener("click", () => {
+    gameOver = false;
+    humanScore = 0;
+    computerScore = 0;
+    updateScoreBoard();
+    output.textContent = "";
+    resetButton.remove();
+})
 
 //Randomly picks Rock Paper or Scissors and returns it as a string
 function getComputerChoice() {
@@ -17,29 +44,8 @@ function getComputerChoice() {
     }
 }
 
-//Prompts user to input Rock Paper or Scissors. Loops until user submits a
-//valid response and returns it as a string
-function getHumanChoice() {
-    let validResponse = false;
-    let choice = "";
-    while (!validResponse) {
-        try {
-            choice = prompt("Rock, Paper, Scissors").toLowerCase();
-
-            if (choice === "Rock" || choice === "Paper" || choice === "Scissors") {
-                validResponse = true;
-            } else {
-                alert("Please enter a valid choice");
-            }
-        } catch (error) {
-            alert("Please enter a valid choice");
-        }
-    }
-    return choice;
-}
-
 //Takes the human and computer choices, compares them, declares a winner and increments
-//the score of the winner by 1
+//the score of the winner by 1. At the end checks to see if the max score has been met.
 function playRound(humanChoice, computerChoice) {
     let winState = "";
     switch (humanChoice) {
@@ -74,9 +80,15 @@ function playRound(humanChoice, computerChoice) {
             output.textContent = `You lose! ${computerChoice} beats ${humanChoice}.`;
             break;
     }
-    (humanScore === roundCount || computerScore === roundCount) && declareGameOver();
+    (humanScore === maxScore || computerScore === maxScore) && declareGameOver();
 }
 
+function updateScoreBoard() { 
+    scoreBoard.textContent = `Your Score: ${humanScore} | Computer Score: ${computerScore}`; 
+}
+
+//Setting gameOver to true will prevent the player from being able to start a new round.
+//This forces the player to either click the reset button or refresh the page.
 function declareGameOver() {
     gameOver = true;
     output.textContent += "\nGAME OVER!\n";
@@ -87,55 +99,3 @@ function declareGameOver() {
     }
     body.appendChild(resetButton);
 }
-
-const body = document.querySelector("body");
-const choiceButtons = document.querySelectorAll(".choice");
-const output = document.querySelector("#output");
-const scoreBoard = document.querySelector("#scoreBoard");
-const resetButton = document.createElement("button");
-scoreBoard.textContent = `Your Score: ${humanScore} | Computer Score: ${computerScore}`;
-resetButton.textContent = "Reset";
-
-
-choiceButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-        if (gameOver) {
-            output.textContent = "The game is over! Click the reset button to start a new game.";
-        } else {
-            playRound(button.textContent, getComputerChoice());
-        }
-    });
-});
-
-resetButton.addEventListener("click", () => {
-    gameOver = false;
-    humanScore = 0;
-    computerScore = 0;
-    updateScoreBoard();
-    output.textContent = "";
-    resetButton.remove();
-})
-
-function updateScoreBoard() { scoreBoard.textContent = `Your Score: ${humanScore} | Computer Score: ${computerScore}`; }
-
-/*
-//Calls playRound() five times and then declares a winner.
-function playGame() {
-    for (let i = 0; i < 5; i++) {
-        playRound(getHumanChoice(), getComputerChoice());
-    }
-    console.log(`Your Score: ${humanScore} Computer Score: ${computerScore}`);
-    if (humanScore > computerScore) {
-        console.log("Congratulations, you bested the machine!");
-    }
-    else if (humanScore < computerScore) {
-        console.log("The computer beat you. Better luck next time!");
-    }
-    else {
-        console.log("The match was a draw.")
-    }
-//Reset scores for another game
-    humanScore = 0;
-    computerScore = 0;
-}
-*/
