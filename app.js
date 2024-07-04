@@ -60,19 +60,20 @@ function playRound(humanChoice, computerChoice) {
     switch (winState) {
         case "win":
             humanScore++;
-            console.log(`You win! ${humanChoice} beats ${computerChoice}.`);
+            output.textContent = `You win! ${humanChoice} beats ${computerChoice}.`;
             break;
         case "tie":
-            console.log(`It's a tie! You both picked ${humanChoice}.`);
+            output.textContent = `It's a tie! You both picked ${humanChoice}.`;
             break;
         case "lose":
             computerScore++;
-            console.log(`You lose! ${computerChoice} beats ${humanChoice}.`);
+            output.textContent = `You lose! ${computerChoice} beats ${humanChoice}.`;
             break;
     }
 }
 
 const buttons = document.querySelectorAll("button");
+const output = document.querySelector("#output");
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
         playRound(button.textContent, getComputerChoice());
