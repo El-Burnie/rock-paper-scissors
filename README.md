@@ -1,6 +1,3 @@
 This is a project from The Odin Project to make an in-console rock paper scissors game.
 
-The game will consist of five rounds of rock paper scissors with a human player against the computer.
-Each round the user will be prompted to write their choice on a popup. The computer will randomly generate 
-a choice of either rock, paper or scissors. After five rounds, the number of rounds won will be compared
-and a winner will be declared.
+The game will consist of several rounds of rock paper scissors where a human player goes against the computer. The computer will randomly generate a choice of either rock, paper or scissors. The human player will click a button to make their choice. After the max games won (5 by default) is reached by the human player or computer, a winner will be declared.
