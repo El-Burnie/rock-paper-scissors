@@ -79,21 +79,25 @@ function playRound(humanChoice, computerChoice) {
 
 function declareGameOver() {
     gameOver = true;
-    output.textContent += "\nGAME OVER!\n"
+    output.textContent += "\nGAME OVER!\n";
     if (humanScore > computerScore) {
         output.textContent += "Congratulations, you bested the machine!";
     } else {
         output.textContent += "The computer beat you. Better luck next time!";
     }
+    body.appendChild(resetButton);
 }
 
-
-const buttons = document.querySelectorAll("button");
+const body = document.querySelector("body");
+const choiceButtons = document.querySelectorAll(".choice");
 const output = document.querySelector("#output");
 const scoreBoard = document.querySelector("#scoreBoard");
+const resetButton = document.createElement("button");
 scoreBoard.textContent = `Your Score: ${humanScore} | Computer Score: ${computerScore}`;
+resetButton.textContent = "Reset";
 
-buttons.forEach((button) => {
+
+choiceButtons.forEach((button) => {
     button.addEventListener("click", () => {
         if (gameOver) {
             output.textContent = "The game is over! Click the reset button to start a new game.";
@@ -102,6 +106,15 @@ buttons.forEach((button) => {
         }
     });
 });
+
+resetButton.addEventListener("click", () => {
+    gameOver = false;
+    humanScore = 0;
+    computerScore = 0;
+    updateScoreBoard();
+    output.textContent = "";
+    resetButton.remove();
+})
 
 function updateScoreBoard() { scoreBoard.textContent = `Your Score: ${humanScore} | Computer Score: ${computerScore}`; }
 
