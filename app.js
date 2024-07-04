@@ -1,5 +1,7 @@
+const roundCount = 5;
 let humanScore = 0;
 let computerScore = 0;
+let gameOver = false;
 
 //Randomly picks Rock Paper or Scissors and returns it as a string
 function getComputerChoice() {
@@ -72,7 +74,19 @@ function playRound(humanChoice, computerChoice) {
             output.textContent = `You lose! ${computerChoice} beats ${humanChoice}.`;
             break;
     }
+    (humanScore === roundCount || computerScore === roundCount) && declareGameOver();
 }
+
+function declareGameOver() {
+    gameOver = true;
+    output.textContent += "\nGAME OVER!\n"
+    if (humanScore > computerScore) {
+        output.textContent += "Congratulations, you bested the machine!";
+    } else {
+        output.textContent += "The computer beat you. Better luck next time!";
+    }
+}
+
 
 const buttons = document.querySelectorAll("button");
 const output = document.querySelector("#output");
@@ -81,11 +95,15 @@ scoreBoard.textContent = `Your Score: ${humanScore} | Computer Score: ${computer
 
 buttons.forEach((button) => {
     button.addEventListener("click", () => {
-        playRound(button.textContent, getComputerChoice());
+        if (gameOver) {
+            output.textContent = "The game is over! Click the reset button to start a new game.";
+        } else {
+            playRound(button.textContent, getComputerChoice());
+        }
     });
 });
 
-function updateScoreBoard() { scoreBoard.textContent = `Your Score: ${humanScore} | Computer Score: ${computerScore}`;}
+function updateScoreBoard() { scoreBoard.textContent = `Your Score: ${humanScore} | Computer Score: ${computerScore}`; }
 
 /*
 //Calls playRound() five times and then declares a winner.
